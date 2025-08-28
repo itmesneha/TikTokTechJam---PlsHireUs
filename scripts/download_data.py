@@ -41,7 +41,6 @@ if __name__ == "__main__":
                 obj = json.loads(line)  # one JSON object per line
                 print(obj)
                 if i == 2: break
-        break  # only process the first review file
 
     for meta_path in paths["metas"]:
         path_meta = download(meta_path)
@@ -50,4 +49,3 @@ if __name__ == "__main__":
                 obj = json.loads(line)  # one JSON object per line
                 print(obj)
                 if i == 2: break
-        break  # only process the first meta file
