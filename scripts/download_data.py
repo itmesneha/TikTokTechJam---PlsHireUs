@@ -6,6 +6,10 @@ def download(url: str, out_dir: str = "../datasets/") -> Path:
     dest = out_dir / Path(url).name
     tmp  = dest.with_name(dest.name + ".part")
 
+    if dest.exists():
+        print(f"Skipping {url}, file already exists at {dest}")
+        return dest
+
     # Resume if partial exists
     headers = {}
     if tmp.exists():
@@ -26,17 +30,24 @@ def download(url: str, out_dir: str = "../datasets/") -> Path:
 
 
 if __name__ == "__main__":
-    path_review = download("https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/review-Alaska_10.json.gz")
-    with gzip.open(path_review, "rt", encoding="utf-8") as f:
-        for i, line in enumerate(f):
-            obj = json.loads(line)  # one JSON object per line
-            print(obj)
-            if i == 2: break
+    # Load paths from JSON file
+    with open("data_for_download.json", "r") as f:
+        paths = json.load(f)
 
+    for review_path in paths["reviews"]:
+        path_review = download(review_path)
+        with gzip.open(path_review, "rt", encoding="utf-8") as f:
+            for i, line in enumerate(f):
+                obj = json.loads(line)  # one JSON object per line
+                print(obj)
+                if i == 2: break
+        break  # only process the first review file
 
-    path_meta = download("https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/meta-Alaska.json.gz")
-    with gzip.open(path_meta, "rt", encoding="utf-8") as f:
-        for i, line in enumerate(f):
-            obj = json.loads(line)  # one JSON object per line
-            print(obj)
-            if i == 2: break
+    for meta_path in paths["metas"]:
+        path_meta = download(meta_path)
+        with gzip.open(path_meta, "rt", encoding="utf-8") as f:
+            for i, line in enumerate(f):
+                obj = json.loads(line)  # one JSON object per line
+                print(obj)
+                if i == 2: break
+        break  # only process the first meta file

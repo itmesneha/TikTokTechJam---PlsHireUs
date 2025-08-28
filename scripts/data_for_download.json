@@ -1,0 +1,12 @@
+{
+    "reviews": [
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/review-Alaska_10.json.gz",
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/review-District_of_Columbia_10.json.gz",
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/review-North_Dakota_10.json.gz"
+    ],
+    "metas": [
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/meta-Alaska.json.gz",
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/meta-District_of_Columbia.json.gz",
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/meta-North_Dakota.json.gz"
+    ]
+}
