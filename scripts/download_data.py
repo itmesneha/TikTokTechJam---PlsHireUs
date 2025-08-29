@@ -1,4 +1,5 @@
-import requests, json, gzip
+# download.py
+import requests
 from pathlib import Path
 
 def download(url: str, out_dir: str = "../datasets/") -> Path:
@@ -27,25 +28,3 @@ def download(url: str, out_dir: str = "../datasets/") -> Path:
     tmp.rename(dest)
     print(f"Saved to {dest}")
     return dest
-
-
-if __name__ == "__main__":
-    # Load paths from JSON file
-    with open("data_for_download.json", "r") as f:
-        paths = json.load(f)
-
-    for review_path in paths["reviews"]:
-        path_review = download(review_path)
-        with gzip.open(path_review, "rt", encoding="utf-8") as f:
-            for i, line in enumerate(f):
-                obj = json.loads(line)  # one JSON object per line
-                print(obj)
-                if i == 2: break
-
-    for meta_path in paths["metas"]:
-        path_meta = download(meta_path)
-        with gzip.open(path_meta, "rt", encoding="utf-8") as f:
-            for i, line in enumerate(f):
-                obj = json.loads(line)  # one JSON object per line
-                print(obj)
-                if i == 2: break
