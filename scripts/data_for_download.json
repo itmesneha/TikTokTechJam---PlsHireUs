@@ -2,11 +2,22 @@
     "reviews": [
         "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/review-Alaska_10.json.gz",
         "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/review-District_of_Columbia_10.json.gz",
-        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/review-North_Dakota_10.json.gz"
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/review-North_Dakota_10.json.gz",
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/review-Delaware_10.json.gz",
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/review-Wyoming_10.json.gz",
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/review-Idaho_10.json.gz",
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/review-Montana_10.json.gz",
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/review-New_Jersey_10.json.gz"
+
     ],
     "metas": [
         "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/meta-Alaska.json.gz",
         "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/meta-District_of_Columbia.json.gz",
-        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/meta-North_Dakota.json.gz"
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/meta-North_Dakota.json.gz",
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/meta-Delaware.json.gz",
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/meta-Wyoming.json.gz",
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/meta-Idaho.json.gz",
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/meta-Montana.json.gz",
+        "https://mcauleylab.ucsd.edu/public_datasets/gdrive/googlelocal/meta-New_Jersey.json.gz"
     ]
 }
