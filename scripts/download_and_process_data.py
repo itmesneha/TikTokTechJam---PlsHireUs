@@ -2,7 +2,7 @@
 import json, gzip
 from download_data import download
 
-def process_review_data(paths):
+def process_review_data(paths, n):
     # Load metadata into memory
     meta_data = {}
     for meta_path in paths["metas"]:
@@ -14,15 +14,22 @@ def process_review_data(paths):
 
     # Process review data
     review_data = []
+    review_counts = {}
     for review_path in paths["reviews"]:
         path_review = download(review_path)
+        review_counts[review_path] = 0
         with gzip.open(path_review, "rt", encoding="utf-8") as f:
             for line in f:
                 obj = json.loads(line)
+                if obj.get("text") is None:
+                    continue
                 gmap_id = obj["gmap_id"]
                 meta = meta_data.get(gmap_id)
                 if meta:
                     review_data.append({"meta": meta, "review": obj})
+                    review_counts[review_path] += 1
+                    if review_counts[review_path] >= n:
+                        break
 
     # Save review data to JSON file
     with open("../datasets/data_for_gpt-oss.json", "w") as f:
@@ -33,4 +40,4 @@ if __name__ == "__main__":
     with open("data_for_download.json", "r") as f:
         paths = json.load(f)
 
-    process_review_data(paths)
+    process_review_data(paths, 20000)
