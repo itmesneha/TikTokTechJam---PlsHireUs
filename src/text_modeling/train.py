@@ -130,41 +130,12 @@ def train_model(
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             best_model_path = os.path.join(save_dir, f"best_model_epoch{epoch+1}")
-            print(f"  ✅ New best model, saving to {best_model_path}")
+            print(f"New best model, saving to {best_model_path}")
             tokenizer.save_pretrained(best_model_path)
             model.save_pretrained(best_model_path)
     return model, tokenizer
 
 
-# # -----------------------
-# # Evaluation (simple)
-# # -----------------------
-# def evaluate(model, tokenizer, json_file, device="cuda" if torch.cuda.is_available() else "cpu"):
-#     with open(json_file, "r") as f:
-#         data = json.load(f)
-
-#     dataset = ReviewDataset(data[:10], tokenizer)
-#     dataloader = DataLoader(dataset, batch_size=16)
-
-#     model.eval()
-#     preds, labels = [], []
-#     with torch.no_grad():
-#         for batch in dataloader:
-#             batch = {k: v.to(device) for k, v in batch.items()}
-#             outputs = model(**batch)
-#             logits = outputs["logits"]
-#             pred = torch.argmax(logits, dim=1).cpu().numpy()
-#             true = batch["labels"].cpu().numpy()
-#             preds.extend(pred)
-#             labels.extend(true)
-
-#     from sklearn.metrics import classification_report
-#     print(classification_report(labels, preds, target_names=["Ad", "Irrelevant", "RantNV", "Trustworthy"]))
-
-
-# -----------------------
-# Main
-# -----------------------
 if __name__ == "__main__":
     json_file = "../../datasets/data_for_transformer.json"
 
