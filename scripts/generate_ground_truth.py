@@ -1,8 +1,37 @@
 import json
-from transformers import pipeline
+import re
+from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
 
+def parse_model_output(full_output):
+    """
+    Parses a string containing model output to extract the last JSON object with 'label'.
+    
+    Args:
+        full_output (str): The full string output from the model.
+        
+    Returns:
+        tuple: A tuple containing the extracted label and rationale.
+               Returns ("Unknown", full_output) as a fallback on parsing failure.
+    """
+    # The regex is now non-greedy (`*?`) to find individual JSON objects
+    # and properly captures everything from the opening to the closing brace.
+    matches = re.findall(r'(\{[\s\S]*?"label"[\s\S]*?\})', full_output)
+    
+    if matches:
+        try:
+            # Get the last JSON object from the list of all matches
+            last_match = matches[-1]
+            parsed = json.loads(last_match)
+            return parsed.get("label", "Unknown"), parsed.get("rationale", "")
+        except json.JSONDecodeError:
+            # Handle cases where the last match isn't valid JSON
+            return "Unknown", full_output
+    else:
+        # Fallback if no matching JSON object is found
+        return "Unknown", full_output
+
+# --- Begin unchanged script setup ---
 device = "mps" if torch.backends.mps.is_available() else "cpu"
 
 model_id = "mistralai/Mistral-7B-Instruct-v0.3"
@@ -25,6 +54,7 @@ with open("../datasets/data_for_ground_truth.json", "r") as f:
     dataset = json.load(f)
 
 results = []
+# --- End unchanged script setup ---
 
 def classify_one(entry):
     prompt = f"""
@@ -48,20 +78,18 @@ def classify_one(entry):
     """
     outputs = pipe(prompt)
     text = outputs[0]["generated_text"].strip()
+    
+    # Use the new, robust parsing function
+    label, rationale = parse_model_output(text)
 
-    try:
-        parsed = json.loads(text)
-    except:
-        parsed = {"label": "Unknown", "rationale": text}
-
+    # Return the complete dictionary
     return {
         "gmap_id": entry["review"].get("gmap_id"),
         "user_id": entry["review"].get("user_id"),
-        "label": parsed.get("label", "Unknown"),
-        "raw_output": parsed.get("rationale", ""),
+        "label": label,
+        "rationale": rationale,
         "full_output": text
     }
-
 
 
 for i, entry in enumerate(dataset[:100]):
