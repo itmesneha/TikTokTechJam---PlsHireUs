@@ -1,13 +1,24 @@
 import json
 from transformers import pipeline
 import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
-# Initialize local pipeline using GPU (MPS or CPU)
+device = "mps" if torch.backends.mps.is_available() else "cpu"
+
+model_id = "mistralai/Mistral-7B-Instruct-v0.3"
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+
+model = AutoModelForCausalLM.from_pretrained(
+    model_id,
+    torch_dtype=torch.bfloat16, 
+    device_map={"": device}
+)
+
 pipe = pipeline(
     "text-generation",
-    model="openai/gpt-oss-20b",
-    torch_dtype="auto",
-    device_map="auto"
+    model=model,
+    tokenizer=tokenizer,
+    max_new_tokens=100
 )
 
 with open("../datasets/data_for_gpt-oss.json", "r") as f:
@@ -31,11 +42,9 @@ Review JSON
 
 Pick one label only:
 """
-    outputs = pipe([{"role": "user", "content": prompt}], max_new_tokens=50)
+    outputs = pipe(prompt)
     text = outputs[0]["generated_text"]
-    # Here you might need to parse label from the generated text
-    # For quite formatted output, assume text has label structure
-    parsed_label = text.strip().split("\n")[0]  # simplistic parsing
+    parsed_label = text.strip().split("\n")[0] 
 
     return {
         "gmap_id": entry["review"].get("gmap_id"),
