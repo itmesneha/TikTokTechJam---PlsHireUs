@@ -3,7 +3,7 @@ from openai import OpenAI
 
 client = OpenAI(
     base_url="https://router.huggingface.co/v1",
-    api_key="YOUR_API_KEY",
+    api_key="",
 )
 
 completion = client.chat.completions.create(
