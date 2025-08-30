@@ -21,7 +21,7 @@ pipe = pipeline(
     max_new_tokens=100
 )
 
-with open("../datasets/data_for_gpt-oss.json", "r") as f:
+with open("../datasets/data_for_ground_truth.json", "r") as f:
     dataset = json.load(f)
 
 results = []
