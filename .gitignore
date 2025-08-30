@@ -1,3 +1,5 @@
 *.gz
 **/*.pyc
 /venv
+*.DS_Store
+data_for_gpt-oss.json
