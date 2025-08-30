@@ -1,92 +1,72 @@
 [
   {
-    "role": "assistant",
-    "content": {
-      "gmap_id": "0x56b646ed2220b77f:0xd8975e316de80952",
-      "label": "Trustworthy",
-      "confidence": 0.98,
-      "rationale": "The reviewer shares personal experiences and specific details about staying at the cabin park, indicating a genuine visit."
-    }
+    "gmap_id": "0x56b646ed2220b77f:0xd8975e316de80952",
+    "user_id": "109129804842686204152",
+    "label": "Trustworthy",
+    "confidence": 0.97,
+    "rationale": "The reviewer shares specific personal experiences and details about staying at the cabins, indicating a genuine visit."
   },
   {
-    "role": "assistant",
-    "content": {
-      "gmap_id": "0x56b646ed2220b77f:0xd8975e316de80952",
-      "label": "Trustworthy",
-      "confidence": 0.93,
-      "rationale": "The review describes personal experiences and specific amenities, with no promotional language, links, or off\u2011topic content."
-    }
+    "gmap_id": "0x56b646ed2220b77f:0xd8975e316de80952",
+    "user_id": "113240926405758965692",
+    "label": "Trustworthy",
+    "confidence": 0.96,
+    "rationale": "The review gives specific details about the campground's amenities and experience, indicating a genuine visit."
   },
   {
-    "role": "assistant",
-    "content": {
-      "gmap_id": "0x56b646ed2220b77f:0xd8975e316de80952",
-      "label": "Trustworthy",
-      "confidence": 0.99,
-      "rationale": "The reviewer details a personal stay, describing specific facilities and experiences, indicating a genuine visit."
-    }
+    "gmap_id": "0x56b646ed2220b77f:0xd8975e316de80952",
+    "user_id": "113044837891141253355",
+    "label": "Trustworthy",
+    "confidence": 0.97,
+    "rationale": "The reviewer provides detailed, first\u2011person observations about camping, facilities, and Wi\u2011Fi, indicating an actual visit."
   },
   {
-    "role": "assistant",
-    "content": {
-      "gmap_id": "0x56b646ed2220b77f:0xd8975e316de80952",
-      "label": "Trustworthy",
-      "confidence": 0.98,
-      "rationale": "The reviewer provides specific details about the stay (location, amenities, cleanliness) indicating a genuine personal experience."
-    }
+    "gmap_id": "0x56b646ed2220b77f:0xd8975e316de80952",
+    "user_id": "110329155147592031570",
+    "label": "Trustworthy",
+    "confidence": 0.98,
+    "rationale": "The review details specific aspects of the stay (location, amenities, cleanliness) indicating a genuine personal experience."
   },
   {
-    "role": "assistant",
-    "content": {
-      "gmap_id": "0x56b646ed2220b77f:0xd8975e316de80952",
-      "label": "Trustworthy",
-      "confidence": 0.97,
-      "rationale": "The reviewer shares a personal positive experience about the campground, indicating a genuine visit."
-    }
+    "gmap_id": "0x56b646ed2220b77f:0xd8975e316de80952",
+    "user_id": "108989634908602011119",
+    "label": "Trustworthy",
+    "confidence": 0.96,
+    "rationale": "The reviewer shares a personal positive experience about the campground's cleanliness, indicating a genuine visit."
   },
   {
-    "role": "assistant",
-    "content": {
-      "gmap_id": "0x56b646ed2220b77f:0xd8975e316de80952",
-      "label": "Trustworthy",
-      "confidence": 0.96,
-      "rationale": "The review describes a personal stay experience (sleep, cleanliness, staff) indicating a genuine visit."
-    }
+    "gmap_id": "0x56b646ed2220b77f:0xd8975e316de80952",
+    "user_id": "115738865548796071801",
+    "label": "Trustworthy",
+    "confidence": 0.96,
+    "rationale": "The review describes a positive personal experience with specific details about the stay, indicating a genuine visit."
   },
   {
-    "role": "assistant",
-    "content": {
-      "gmap_id": "0x56c8992b5dee7225:0x9f7f4bf151868cf7",
-      "label": "Trustworthy",
-      "confidence": 0.96,
-      "rationale": "Positive, personal language and photos indicate the reviewer actually visited the market."
-    }
+    "gmap_id": "0x56c8992b5dee7225:0x9f7f4bf151868cf7",
+    "user_id": "116393231987956549910",
+    "label": "Trustworthy",
+    "confidence": 0.94,
+    "rationale": "The reviewer describes personal experience ('always a treat to visit... rain or shine') and includes photos, indicating a genuine visit without promotional or irrelevant content."
   },
   {
-    "role": "assistant",
-    "content": {
-      "gmap_id": "0x56c8992b5dee7225:0x9f7f4bf151868cf7",
-      "label": "Trustworthy",
-      "confidence": 0.96,
-      "rationale": "The reviewer gives specific, experience\u2011based details about the market (booth count, product quality, pricing), indicating a genuine visit."
-    }
+    "gmap_id": "0x56c8992b5dee7225:0x9f7f4bf151868cf7",
+    "user_id": "117985992059356012741",
+    "label": "Trustworthy",
+    "confidence": 0.96,
+    "rationale": "The reviewer provides specific, experience\u2011based details about the market (number of booths, produce quality, pricing) indicating a genuine visit."
   },
   {
-    "role": "assistant",
-    "content": {
-      "gmap_id": "0x56c8992b5dee7225:0x9f7f4bf151868cf7",
-      "label": "Trustworthy",
-      "confidence": 0.86,
-      "rationale": "Reviewer comments on the market's activity after it moved, indicating personal observation and experience rather than advertisement or off\u2011topic content."
-    }
+    "gmap_id": "0x56c8992b5dee7225:0x9f7f4bf151868cf7",
+    "user_id": "115658246644483827476",
+    "label": "Trustworthy",
+    "confidence": 0.88,
+    "rationale": "The reviewer shares a personal opinion about the market\u2019s activity and location change, indicating they have likely visited or have direct knowledge."
   },
   {
-    "role": "assistant",
-    "content": {
-      "gmap_id": "0x56c8992b5dee7225:0x9f7f4bf151868cf7",
-      "label": "Trustworthy",
-      "confidence": 0.78,
-      "rationale": "The review directly mentions the business ('It's a market') and contains a rating, indicating a genuine but minimal experience; it is not promotional, off\u2011topic, or a complaint without visit."
-    }
+    "gmap_id": "0x56c8992b5dee7225:0x9f7f4bf151868cf7",
+    "user_id": "103655755742322578001",
+    "label": "Trustworthy",
+    "confidence": 0.86,
+    "rationale": "The brief comment directly references the business ('It's a market') and includes a rating, indicating a genuine (though minimal) experience."
   }
 ]
