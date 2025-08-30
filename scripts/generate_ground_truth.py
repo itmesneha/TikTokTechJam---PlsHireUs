@@ -40,18 +40,38 @@ Input: business metadata JSON
 Review JSON
 {json.dumps(entry['review'], indent=2)}
 
-Pick one label only:
+Pick one label only and provide a short rationale:
 """
     outputs = pipe(prompt)
     text = outputs[0]["generated_text"]
-    parsed_label = text.strip().split("\n")[0] 
+
+    # ✅ Extract the actual label
+    label = None
+    rationale_lines = []
+    capture_rationale = False
+
+    for line in text.split("\n"):
+        line = line.strip()
+        if line in ["Trustworthy", "Advertisement", "Irrelevant Content", "Rant without visit"] and label is None:
+            label = line
+            capture_rationale = True  # start capturing rationale from next lines
+            continue
+        if capture_rationale:
+            if line:  # non-empty line
+                rationale_lines.append(line)
+
+    rationale = " ".join(rationale_lines).strip() if rationale_lines else ""
+
+    if label is None:
+        label = "Unknown"
 
     return {
         "gmap_id": entry["review"].get("gmap_id"),
         "user_id": entry["review"].get("user_id"),
-        "label": parsed_label,
-        "raw_output": text
+        "label": label,
+        "raw_output": rationale
     }
+
 
 for i, entry in enumerate(dataset[:100]):
     try:
