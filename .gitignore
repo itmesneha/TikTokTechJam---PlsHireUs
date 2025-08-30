@@ -2,4 +2,4 @@
 **/*.pyc
 /venv
 *.DS_Store
-data_for_gpt-oss.json
+data_for_ground_truth.json
