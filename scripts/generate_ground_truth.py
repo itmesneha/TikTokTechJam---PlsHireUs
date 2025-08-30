@@ -18,7 +18,7 @@ pipe = pipeline(
     "text-generation",
     model=model,
     tokenizer=tokenizer,
-    max_new_tokens=100
+    max_new_tokens=200
 )
 
 with open("../datasets/data_for_ground_truth.json", "r") as f:
