@@ -40,37 +40,42 @@ Input: business metadata JSON
 Review JSON
 {json.dumps(entry['review'], indent=2)}
 
-Pick one label only and provide a short rationale:
+Pick one label only:
 """
     outputs = pipe(prompt)
     text = outputs[0]["generated_text"]
 
-    # ✅ Extract the actual label
-    label = None
-    rationale_lines = []
-    capture_rationale = False
+    # Store full output
+    full_output = text.strip()
 
-    for line in text.split("\n"):
-        line = line.strip()
-        if line in ["Trustworthy", "Advertisement", "Irrelevant Content", "Rant without visit"] and label is None:
-            label = line
-            capture_rationale = True  # start capturing rationale from next lines
-            continue
-        if capture_rationale:
-            if line:  # non-empty line
-                rationale_lines.append(line)
+    # ✅ Split at marker to extract label and rationale
+    try:
+        _, after_label_marker = full_output.split("Pick one label only:", 1)
+    except ValueError:
+        after_label_marker = full_output
 
-    rationale = " ".join(rationale_lines).strip() if rationale_lines else ""
+    lines = [line.strip() for line in after_label_marker.strip().split("\n") if line.strip()]
 
-    if label is None:
-        label = "Unknown"
+    # first line = label
+    label = lines[0] if lines else "Unknown"
+
+    # everything after "Explanation" = rationale
+    rationale = ""
+    remaining_text = "\n".join(lines[1:]) if len(lines) > 1 else ""
+    if "Explanation" in remaining_text:
+        _, rationale_text = remaining_text.split("Explanation", 1)
+        rationale = rationale_text.strip()
+    else:
+        rationale = remaining_text.strip()
 
     return {
         "gmap_id": entry["review"].get("gmap_id"),
         "user_id": entry["review"].get("user_id"),
         "label": label,
-        "raw_output": rationale
+        "raw_output": rationale,
+        "full_output": full_output
     }
+
 
 
 for i, entry in enumerate(dataset[:100]):
