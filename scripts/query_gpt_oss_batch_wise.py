@@ -10,8 +10,8 @@ from openai import OpenAI
 
 client = OpenAI(
     base_url="https://router.huggingface.co/v1",
-    api_key="", 
-    )
+    api_key="",
+)
 
 def classify_one(entry):
     meta_json = json.dumps(entry["meta"], indent=2)
@@ -50,14 +50,28 @@ Output in the below JSON format only:
     )
     msg = completion.choices[0].message
 
-    # Return parsed dict instead of raw object
     try:
         parsed = json.loads(msg.content)
-        return parsed
     except Exception:
-        # if model outputs slightly malformed JSON, save as string
-        return {"raw": msg.content}
+        return {
+            "gmap_id": entry["review"].get("gmap_id"),
+            "user_id": entry["review"].get("user_id"),
+            "label": "ERROR",
+            "confidence": 0.0,
+            "rationale": msg.content
+        }
 
+    # ✅ flatten structure: pull from "content" + inject user_id + gmap_id
+    content = parsed.get("content", {})
+    flattened = {
+        "gmap_id": entry["review"].get("gmap_id"),
+        "user_id": entry["review"].get("user_id"),
+        "label": content.get("label"),
+        "confidence": content.get("confidence"),
+        "rationale": content.get("rationale"),
+    }
+
+    return flattened
 
 
 results = []
