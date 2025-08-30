@@ -28,52 +28,38 @@ results = []
 
 def classify_one(entry):
     prompt = f"""
-You classify Google reviews into one of four exclusive categories:
-- Trustworthy: Genuine experience at the business.
-- Advertisement: Promo/marketing, owner self-post, coupon links.
-- Irrelevant Content: Off-topic, spam, wrong place, meaningless.
-- Rant without visit: Complaints/opinions with no evidence of visiting.
+    You classify Google reviews into one of four exclusive categories:
+    - Trustworthy: Genuine experience at the business.
+    - Advertisement: Promo/marketing, owner self-post, coupon links.
+    - Irrelevant Content: Off-topic, spam, wrong place, meaningless.
+    - Rant without visit: Complaints/opinions with no evidence of visiting.
 
-Input: business metadata JSON
-{json.dumps(entry['meta'], indent=2)}
+    Input: business metadata JSON
+    {json.dumps(entry['meta'], indent=2)}
 
-Review JSON
-{json.dumps(entry['review'], indent=2)}
+    Review JSON
+    {json.dumps(entry['review'], indent=2)}
 
-Pick one label only:
-"""
+    Output only a JSON object like this:
+    {{
+    "label": "<one of the four categories>",
+    "rationale": "<brief 1-2 sentence explanation>"
+    }}
+    """
     outputs = pipe(prompt)
-    text = outputs[0]["generated_text"]
+    text = outputs[0]["generated_text"].strip()
 
-    # Store full output
-    full_output = text.strip()
-
-    # ✅ Split at marker to extract label and rationale
     try:
-        _, after_label_marker = full_output.split("Pick one label only:", 1)
-    except ValueError:
-        after_label_marker = full_output
-
-    lines = [line.strip() for line in after_label_marker.strip().split("\n") if line.strip()]
-
-    # first line = label
-    label = lines[0] if lines else "Unknown"
-
-    # everything after "Explanation" = rationale
-    rationale = ""
-    remaining_text = "\n".join(lines[1:]) if len(lines) > 1 else ""
-    if "Explanation" in remaining_text:
-        _, rationale_text = remaining_text.split("Explanation", 1)
-        rationale = rationale_text.strip()
-    else:
-        rationale = remaining_text.strip()
+        parsed = json.loads(text)
+    except:
+        parsed = {"label": "Unknown", "rationale": text}
 
     return {
         "gmap_id": entry["review"].get("gmap_id"),
         "user_id": entry["review"].get("user_id"),
-        "label": label,
-        "raw_output": rationale,
-        "full_output": full_output
+        "label": parsed.get("label", "Unknown"),
+        "raw_output": parsed.get("rationale", ""),
+        "full_output": text
     }
 
 
