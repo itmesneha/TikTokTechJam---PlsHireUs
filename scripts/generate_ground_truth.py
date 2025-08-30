@@ -92,7 +92,7 @@ def classify_one(entry):
     }
 
 
-for i, entry in enumerate(dataset[:100]):
+for i, entry in enumerate(dataset):
     try:
         res = classify_one(entry)
         results.append(res)
