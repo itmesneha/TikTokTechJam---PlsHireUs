@@ -1,4 +1,5 @@
 import json
+import pandas as pd
 
 def transform_data(input_file, output_file):
     with open(input_file, 'r') as f:
@@ -69,12 +70,42 @@ def add_labels(input_file, classified_reviews_file, output_file):
         json.dump(list(transformer_dict.values()), f, indent=4)
 
 
+def add_sentiment(input_file, sentiment_file, output_file):
+    # Load the sentiment data
+    sentiment_df = pd.read_csv(sentiment_file)
+
+    # Load the transformer data
+    with open(input_file, 'r') as f:
+        transformer_data = json.load(f)
+
+    # Create a dictionary to map gmap_id and user_id to transformer data
+    transformer_dict = {}
+    for item in transformer_data:
+        gmap_id = item['gmap_id']
+        user_id = item['user_id']
+        transformer_dict[(gmap_id, user_id)] = item
+
+    # Iterate over the sentiment data and add the sentiment to the transformer data
+    for index, row in sentiment_df.iterrows():
+        gmap_id = row['meta_gmap_id']
+        user_id = row['review_user_id']
+        sentiment = row['rating_sentiment']
+
+        # Check if the gmap_id and user_id exist in the transformer data
+        if (gmap_id, user_id) in transformer_dict:
+            transformer_dict[(gmap_id, user_id)]['sentiment'] = sentiment
+
+    # Save the updated transformer data to a new file
+    with open(output_file, 'w') as f:
+        json.dump(list(transformer_dict.values()), f, indent=4)
+
+
 
 if __name__ == "__main__":
     # Call the function
     transform_data('../../datasets/data_for_gpt-oss.json', '../../datasets/data_for_transformer.json')
     add_labels('../../datasets/data_for_transformer.json', '../../datasets/classified_reviews.json', '../../datasets/data_for_transformer.json')
-
+    add_sentiment('../../datasets/data_for_transformer.json', '../../datasets/processed_reviews_with_sentiment.csv', '../../datasets/data_for_transformer.json')
 
 
 
